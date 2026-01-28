@@ -1,0 +1,1182 @@
+{
+    "pmt_refer_code_of_company": "PMT_KAL_5776815_1",
+    "pmt_transaction_status": "",
+    "pmt_company_id": "1022",
+    "pmt_pol_id": "502-0193305",
+    "pmt_pol_refer_code_of_company": "POL_KAL_502-0193305",
+    "pmt_id": "5776815",
+    "pmt_type": "01",
+    "pmt_direct_premium": "02",
+    "pmt_premium_payment_period_year": 33,
+    "pmt_premium_payment_year": 2,
+    "pmt_payment_period": "01",
+    "payment_period_seqs": [
+        {
+            "pmt_prd_premium_seq": 1,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 19661,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 19661,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-02-25T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 2,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-03-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 3,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-04-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 4,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-05-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 5,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-06-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 6,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-07-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 7,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-08-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 8,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-09-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 9,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-10-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 10,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-11-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        },
+        {
+            "pmt_prd_premium_seq": 11,
+            "pmt_prd_premium_outstanding_payment": 0,
+            "pmt_prd_premium_amount": 0,
+            "pmt_prd_premium_amount_tax": 0,
+            "pmt_prd_premium_amount_life": 0,
+            "pmt_prd_premium_amt_saving": 0,
+            "pmt_prd_premium_amt_investment": 0,
+            "pmt_prd_premium_amount_other": 0,
+            "pmt_prd_premium_amount_com": 0,
+            "pmt_prd_premium_amt_interest": 0,
+            "pmt_prd_premium_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_due_date": "2007-12-26T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_receipt_date": "2008-08-28T00:00:00+07:00",
+            "pmt_prd_premium_temp_receipt_number": "0005224108",
+            "pmt_prd_premium_receipt_number": "0005224108",
+            "pmt_prd_premium_channel": "03",
+            "payment_premium_type_riders": [
+                {
+                    "pmt_premium_rid_number": "502-0193305_1",
+                    "pmt_premium_rid_amount": 2.43
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_10",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_11",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_12",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_13",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_14",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_15",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_16",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_17",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_18",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_19",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_2",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_20",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_3",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_4",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_5",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_6",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_7",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_8",
+                    "pmt_premium_rid_amount": 81
+                },
+                {
+                    "pmt_premium_rid_number": "502-0193305_9",
+                    "pmt_premium_rid_amount": 81
+                }
+            ],
+            "payment_premium_type_endorsements": [
+                {
+                    "pmt_premium_edm_amount": 0
+                }
+            ]
+        }
+    ],
+    "id": "fd2af1444b51e32e585fb9d36468fc5102c045856a486ec8bc97e79446f67e26"
+}
