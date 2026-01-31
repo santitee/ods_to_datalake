@@ -1,0 +1,44 @@
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+
+# สร้าง Spark Session
+spark = SparkSession.builder.appName("ConditionalSum").getOrCreate()
+
+# 1. จำลองข้อมูล (Mock Data)
+# สมมติเรา group ตาม 'policy_id'
+data = [
+    ("P001", "basic", 1000),
+    ("P001", "rider", 500),
+    ("P001", "tax", 50),      # แถวนี้จะไม่ถูกนับใน total ตามโจทย์
+    ("P002", "basic", 2000),
+    ("P002", "rider", 0),
+    ("P003", "rider", 300)
+]
+columns = ["policy_id", "premium_level", "amount"]
+df = spark.createDataFrame(data, columns)
+
+print("--- ข้อมูลดิบ ---")
+df.show()
+
+# 2. การเขียน Logic
+# เราจะ GroupBy ตาม policy_id และสร้าง 3 คอลัมน์ใหม่
+result_df = df.groupBy("policy_id").agg(
+    
+    # 1. สร้าง basic_premium: ถ้าเป็น basic ให้เอาค่า amount มา, ถ้าไม่ใช่ให้เป็น 0 แล้วค่อย sum
+    F.sum(
+        F.when(F.col("premium_level") == "basic", F.col("amount")).otherwise(0)
+    ).alias("basic_premium"),
+
+    # 2. สร้าง rider_premium: ถ้าเป็น rider ให้เอาค่า amount มา
+    F.sum(
+        F.when(F.col("premium_level") == "rider", F.col("amount")).otherwise(0)
+    ).alias("rider_premium"),
+
+    # 3. สร้าง total_premium: รวมเฉพาะ basic และ rider
+    F.sum(
+        F.when(F.col("premium_level").isin(["basic", "rider"]), F.col("amount")).otherwise(0)
+    ).alias("total_premium")
+)
+
+print("--- ผลลัพธ์ ---")
+result_df.show()
