@@ -1,4 +1,4 @@
- have a source code use transactiondate make partition
+I have a source code use transactiondate make partition
 
 ex. transactiondate = 20260123 that be integer or stringe are accept both
 
