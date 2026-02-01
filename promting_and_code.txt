@@ -1,0 +1,74 @@
+Prompting:
+I have a source code use transactiondate make partition
+ex. transactiondate = 20260123 that be integer or stringe are accept both
+and I want to pass a new variable name 'transactiondate_index' and new value is '2026-01-23_1'
+to make partition write on S3 
+please suggest me with systematic thinking and example source code with aws glue pyspark
+
+Code:
+import sys
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+from pyspark.sql.types import StringType
+
+# --- 1. SETUP GLUE CONTEXT ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# --- 2. INPUT VARIABLES (Simulating Job Parameters) ---
+# In a real Glue job, you might use getResolvedOptions(sys.argv, ['JOB_NAME', 't_date', 'run_index'])
+input_transaction_date = "20260123"  # Can be integer 20260123 or string "20260123"
+input_run_index = "1"
+
+# --- 3. CREATE DUMMY DATA (For demonstration) ---
+# We create a small dataframe to simulate your source data
+data = [
+    (1, "Product A", 100, input_transaction_date),
+    (2, "Product B", 200, 20260123), # Notice this one is an Integer to prove it works for both
+    (3, "Product C", 150, "20260123")
+]
+columns = ["id", "product", "amount", "transactiondate"]
+df = spark.createDataFrame(data, columns)
+
+print("--- Original Data ---")
+df.show()
+
+# --- 4. THE TRANSFORMATION LOGIC ---
+# We create the new column 'transactiondate_index'
+# Step A: cast('string') ensures we handle integers safely
+# Step B: to_date(..., 'yyyyMMdd') parses the compact format
+# Step C: date_format(..., 'yyyy-MM-dd') formats it to ISO standard
+# Step D: format_string concatenates the date, the underscore, and the index
+
+df_transformed = df.withColumn(
+    "temp_date_obj", 
+    F.to_date(F.col("transactiondate").cast(StringType()), "yyyyMMdd")
+).withColumn(
+    "transactiondate_index",
+    F.format_string(
+        "%s_%s", 
+        F.date_format(F.col("temp_date_obj"), "yyyy-MM-dd"), 
+        F.lit(input_run_index)
+    )
+).drop("temp_date_obj") # Clean up the temporary column
+
+print("--- Transformed Data ---")
+df_transformed.show()
+
+# --- 5. WRITE TO S3 WITH PARTITIONING ---
+# Replace with your actual bucket path
+s3_output_path = "s3://your-target-bucket/processed-data/"
+
+# detailed write command
+df_transformed.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .parquet(s3_output_path)
+
+print(f"Data successfully written to {s3_output_path}")
+
+F.col("transactiondate").cast(StringType())
