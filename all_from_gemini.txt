@@ -1,0 +1,783 @@
+ have a source code use transactiondate make partition
+
+ex. transactiondate = 20260123 that be integer or stringe are accept both
+
+and I want to pass a new variable name 'transactiondate_index' and new value is '2026-01-23_1'
+
+to make partition write on S3
+
+please suggest me with systematic thinking and example source code with aws glue pyspark
+
+Here is a systematic approach to solving this problem using AWS Glue and PySpark.
+
+1. Systematic Thinking Strategy
+To achieve the transformation from 20260123 to 2026-01-23_1, we need to break the process down into three logical stages: Ingestion, Transformation, and Load.
+
+Stage 1: Variable Definition (Configuration)
+
+We need two inputs: the raw date (transactiondate) and the run identifier (run_index).
+
+These are often passed as "Job Parameters" in AWS Glue, but we will define them as variables for this example.
+
+Stage 2: Transformation Logic (The "How")
+
+Standardization: Since the input can be an integer (20260123) or a string ("20260123"), we must first cast it to a String to ensure consistency.
+
+Date Parsing: We need to parse that string into a real Date object so Spark understands the year, month, and day.
+
+Formatting: We convert that Date object into the desired string format yyyy-MM-dd.
+
+Concatenation: We combine the formatted date with the underscore _ and the run_index.
+
+Stage 3: Partitioned Write (The "Where")
+
+We use the standard Spark write API with .partitionBy() to ensure the data is physically organized in S3 folders like s3://bucket/path/transactiondate_index=2026-01-23_1/.
+
+2. AWS Glue PySpark Source Code
+Here is the complete, runnable code snippet. I have included comments explaining each step of the transformation.
+
+Python
+import sys
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+from pyspark.sql.types import StringType
+
+# --- 1. SETUP GLUE CONTEXT ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# --- 2. INPUT VARIABLES (Simulating Job Parameters) ---
+# In a real Glue job, you might use getResolvedOptions(sys.argv, ['JOB_NAME', 't_date', 'run_index'])
+input_transaction_date = "20260123"  # Can be integer 20260123 or string "20260123"
+input_run_index = "1"
+
+# --- 3. CREATE DUMMY DATA (For demonstration) ---
+# We create a small dataframe to simulate your source data
+data = [
+    (1, "Product A", 100, input_transaction_date),
+    (2, "Product B", 200, 20260123), # Notice this one is an Integer to prove it works for both
+    (3, "Product C", 150, "20260123")
+]
+columns = ["id", "product", "amount", "transactiondate"]
+df = spark.createDataFrame(data, columns)
+
+print("--- Original Data ---")
+df.show()
+
+# --- 4. THE TRANSFORMATION LOGIC ---
+# We create the new column 'transactiondate_index'
+# Step A: cast('string') ensures we handle integers safely
+# Step B: to_date(..., 'yyyyMMdd') parses the compact format
+# Step C: date_format(..., 'yyyy-MM-dd') formats it to ISO standard
+# Step D: format_string concatenates the date, the underscore, and the index
+
+df_transformed = df.withColumn(
+    "temp_date_obj", 
+    F.to_date(F.col("transactiondate").cast(StringType()), "yyyyMMdd")
+).withColumn(
+    "transactiondate_index",
+    F.format_string(
+        "%s_%s", 
+        F.date_format(F.col("temp_date_obj"), "yyyy-MM-dd"), 
+        F.lit(input_run_index)
+    )
+).drop("temp_date_obj") # Clean up the temporary column
+
+print("--- Transformed Data ---")
+df_transformed.show()
+
+# --- 5. WRITE TO S3 WITH PARTITIONING ---
+# Replace with your actual bucket path
+s3_output_path = "s3://your-target-bucket/processed-data/"
+
+# detailed write command
+df_transformed.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .parquet(s3_output_path)
+
+print(f"Data successfully written to {s3_output_path}")
+3. Deep Dive on the Syntax
+Handling Mixed Types
+Python
+F.col("transactiondate").cast(StringType())
+This is the defensive coding part. If your source system sends 20260123 (int) one day and "20260123" (string) the next, this line ensures the rest of the code doesn't crash.
+
+The Date Formatting
+Python
+F.to_date(..., "yyyyMMdd")
+This tells Spark: "Expect the input to look like YearMonthDay closely packed together."
+
+Constructing the String
+Python
+F.format_string("%s_%s", date_part, F.lit(run_index))
+%s_%s: This is a template meaning "String" + "_" + "String".
+
+F.lit(): This stands for Literal. Since run_index is a python variable ("1") and not a dataframe column, we must wrap it in lit() so Spark treats it as a constant value for every row.
+
+4. Resulting S3 Structure
+After running this, your S3 bucket will look like this:
+
+Plaintext
+s3://your-target-bucket/processed-data/
+└── transactiondate_index=2026-01-23_1/
+    ├── part-00000-xyz.snappy.parquet
+    ├── part-00001-abc.snappy.parquet
+This effectively isolates this specific run (_1) of that date (2026-01-23), allowing you to easily overwrite it or query just this specific batch later.
+
+Would you like me to...
+Show you how to convert this script to use AWS Glue DynamicFrames instead of standard PySpark DataFrames? (This is sometimes preferred if you are using Glue Data Catalog tables).
+
+and must be on a new partition using transaction_index to write S3 but the old value transactiondate that write on data same the old source code
+
+That is a great requirement. In Spark, this is actually the default behavior, but it is important to understand why so you can be confident it works.
+
+Here is the rule: Spark only removes the column you list inside partitionBy from the data files. Any column not in the partition list (like your original transactiondate) remains inside the parquet file exactly as it was.
+
+The Strategy
+Create the new column transactiondate_index.
+
+Write the data using .partitionBy("transactiondate_index").
+
+Result:
+
+Folder Structure: The folder will be named transactiondate_index=2026-01-23_1.
+
+File Content: The Parquet file inside that folder will still contain transactiondate (20260123) because we did not use it as the partition key.
+
+AWS Glue PySpark Code
+Here is the exact code to achieve this.
+
+Python
+import sys
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+from pyspark.sql.types import StringType
+
+# --- 1. SETUP ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# Simulation inputs
+input_transaction_date = "20260123"
+input_run_index = "1"
+
+# --- 2. CREATE DUMMY SOURCE DATA ---
+# This represents your original data containing 'transactiondate'
+data = [
+    (1, "Product A", 100, 20260123),
+    (2, "Product B", 200, 20260123)
+]
+columns = ["id", "product", "amount", "transactiondate"]
+df = spark.createDataFrame(data, columns)
+
+# --- 3. TRANSFORMATION (Create the new Partition Key) ---
+# We keep the original 'transactiondate' untouched.
+# We create a NEW column 'transactiondate_index' just for the folder name.
+
+df_final = df.withColumn(
+    "transactiondate_index",
+    F.format_string(
+        "%s_%s", 
+        F.date_format(
+            F.to_date(F.col("transactiondate").cast(StringType()), "yyyyMMdd"), 
+            "yyyy-MM-dd"
+        ), 
+        F.lit(input_run_index)
+    )
+)
+
+print("--- Preview Data before Write ---")
+# You will see BOTH columns here
+df_final.show()
+
+# --- 4. WRITE TO S3 (The Critical Step) ---
+s3_output_path = "s3://your-target-bucket/processed-data/"
+
+# systematic thinking: 
+# We partition ONLY by 'transactiondate_index'.
+# Therefore, 'transactiondate' is treated as regular data and written into the file.
+
+df_final.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .parquet(s3_output_path)
+
+print(f"Written to S3 partitioned by transactiondate_index.")
+
+# --- 5. VERIFICATION (Proof) ---
+# If we read the specific parquet file back (bypassing the folder structure),
+# we can see what physically exists inside the file.
+
+# We verify by reading the underlying parquet files directly
+# (This part is just for you to verify, you don't need it in production)
+print("--- Verifying File Content (Reading back from S3) ---")
+# verify_df = spark.read.parquet(s3_output_path)
+# verify_df.show()
+Visualizing the Result
+1. The S3 Folder Structure (Partition): Only the Index is used here.
+
+Plaintext
+s3://your-target-bucket/processed-data/transactiondate_index=2026-01-23_1/
+2. The Parquet File Content (Data): Inside part-00000.parquet, the data looks like this. Notice transactiondate is safe inside, but transactiondate_index is gone (because it became the folder).
+
+id	product	amount	transactiondate
+1	Product A	100	20260123
+2	Product B	200	20260123
+Why this is the "Best Practice"
+This approach is ideal for Data Lakes because:
+
+Query Speed: Queries that filter by specific batch runs (e.g., WHERE transactiondate_index = '2026-01-23_1') are incredibly fast because S3 only lists that one specific folder.
+
+Data Integrity: You never lose the original raw value (transactiondate). If your formatting logic was wrong, you still have the source of truth (20260123) inside the file to recover from.
+
+Would you like me to...
+Explain how to configure the AWS Glue Data Catalog (Table definition) so that Athena or Redshift Spectrum can automatically read these new partitions (transactiondate_index)?
+
+And must be requirement when each write transaction_index that do not overwrite
+
+It could be keep all data each run transaction_index
+
+2026-01-23_1/one_file (that be can use coalease) and find limitation on file if sizing over ?? MB or GB
+
+2026-01-23_2/one_file (that be can use coalease) and find limitation on file if sizing over ?? MB or GB
+
+2026-01-23_3/one_file (that be can use coalease) and find limitation on file if sizing over ?? MB or GB
+
+2026-01-23_4/one_file (that be can use coalease) and find limitation on file if sizing over ?? MB or GB
+
+Here is the systematic guide to writing data with a "One Partition = One File" strategy, while strictly adding safety guardrails for file size limitations.
+
+1. The Limitation: When to stop using "One File"?
+You asked about the limitation (MB or GB). Here is the rule of thumb for AWS Glue & Athena:
+
+Optimal Size: The "Sweet Spot" for a Parquet file is 128 MB to 512 MB.
+
+The Danger Zone (> 1 GB):
+
+Write Risk: If you force coalesce(1) on a 10GB dataset, a single worker node has to process everything. This often causes an OOM (Out of Memory) Error and crashes your job.
+
+Read Risk (Athena): Athena downloads the whole file to read it. If you have one giant 5GB file, Athena queries will be slow because it cannot split the work across multiple readers.
+
+2. The Solution: "Soft" One-File Strategy
+To meet your requirement ("try to keep it one file, but handle the size limit"), we use a Spark configuration called maxRecordsPerFile.
+
+How it works: You tell Spark, "Put everything in one partition (coalesce(1)), BUT if the file reaches X records, cut it and start a new file."
+
+The Result:
+
+Small Data -> 1 File (Perfect).
+
+Huge Data -> Multiple Files (Safe, prevents crashing).
+
+3. Systematic Source Code (AWS Glue PySpark)
+This code calculates the transactiondate_index (as discussed) and writes the data. It calculates the maxRecordsPerFile dynamically to target ~256MB per file.
+
+Python
+import sys
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+from pyspark.sql.types import StringType
+
+# --- SETUP ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# Simulation Inputs
+input_transaction_date = "20260123"
+input_run_index = "1"
+s3_output_path = "s3://your-target-bucket/processed-data/"
+
+# --- 1. PREPARE DATA ---
+# (Assuming 'df' is your main DataFrame loaded from source)
+# Create dummy data for example
+data = [(i, f"Product {i}", 100, 20260123) for i in range(1000)]
+df = spark.createDataFrame(data, ["id", "product", "amount", "transactiondate"])
+
+# --- 2. TRANSFORMATION (Create Partition Key) ---
+df_final = df.withColumn(
+    "transactiondate_index",
+    F.format_string(
+        "%s_%s", 
+        F.date_format(
+            F.to_date(F.col("transactiondate").cast(StringType()), "yyyyMMdd"), 
+            "yyyy-MM-dd"
+        ), 
+        F.lit(input_run_index)
+    )
+)
+
+# --- 3. SAFETY CALCULATION: Records Per File ---
+# We want to target approx 128MB - 256MB per file to avoid "Giant File" issues.
+# Rule of Thumb: 1 million rows of "average" width data is roughly 100MB in Parquet (varies by compression).
+# Let's set a safety limit of 2,000,000 rows per file (approx 200MB - 300MB).
+
+SAFE_ROW_LIMIT = 2000000 
+
+print(f"--- Writing with Safety Limit: Max {SAFE_ROW_LIMIT} rows per file ---")
+
+# --- 4. THE WRITE STRATEGY ---
+# Step A: repartition(1) -> Forces Spark to TRY to gather data for this partition to 1 writer.
+# Step B: option("maxRecordsPerFile", ...) -> If that 1 writer sees too much data, it splits files automatically.
+
+df_final.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .option("maxRecordsPerFile", SAFE_ROW_LIMIT) \
+    .option("compression", "snappy") \
+    .parquet(s3_output_path)
+
+print(f"Success! Data written to {s3_output_path}")
+4. How the Output Looks in S3
+If your data is Small (e.g., 50MB):
+
+Plaintext
+s3://.../transactiondate_index=2026-01-23_1/
+   └── part-00000-xyz.snappy.parquet  (50MB)  <-- JUST ONE FILE
+If your data is Large (e.g., 500MB):
+
+Plaintext
+s3://.../transactiondate_index=2026-01-23_1/
+   ├── part-00000-xyz.snappy.parquet  (200MB) <-- Split 1
+   ├── part-00001-xyz.snappy.parquet  (200MB) <-- Split 2
+   └── part-00002-xyz.snappy.parquet  (100MB) <-- Split 3
+5. Why use repartition(1) vs coalesce(1)?
+In this specific "Write" scenario, use repartition(1) (or repartition("transactiondate_index") if writing multiple partitions at once).
+
+coalesce(1) performs the merge on a single existing upstream worker. If the previous step was a heavy join, that one worker might die processing the merge.
+
+repartition(1) performs a full shuffle. It is safer because it balances the network load before the final write, ensuring the "One File" writer gets a clean stream of data.
+
+6. Summary of Limitations
+Feature	Limitation / Threshold	Impact of Exceeding
+Max File Size	~512 MB - 1 GB	Queries in Athena become slow (cannot be parallelized).
+Safety Zone	128 MB	Best performance for Athena.
+Row Count	~1M - 2M rows	Approximate equivalent to 128MB (depends on column width).
+Glue Worker	Standard (G.1X)	If you force >1GB into one file without maxRecordsPerFile, the worker will likely run out of memory.
+"transactiondate_index"
+
+can be decleare before
+
+Yes, absolutely. In fact, if every row in your current job belongs to the same transactiondate and run_index, declaring it before the Spark logic is better and faster.
+
+This approach moves the processing load from the Spark Executors (row-by-row calculation) to the Driver (calculated once).
+
+The Systematic Approach
+Driver Side (Pure Python): Calculate the final string "2026-01-23_1" using standard Python libraries (datetime). This happens once.
+
+Executor Side (Spark): Simply paste this constant value into every row using F.lit().
+
+Source Code
+Here is how to calculate the index before touching the DataFrame.
+
+Python
+import sys
+from datetime import datetime
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+
+# --- SETUP ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# --- 1. INPUT VARIABLES ---
+input_transaction_date = "20260123" # Can be int or string
+input_run_index = "1"
+
+# --- 2. PRE-CALCULATE THE INDEX (Pure Python) ---
+# We do this logic ONCE on the driver, not millions of times on the cluster.
+
+# Ensure input is string to be safe
+date_str = str(input_transaction_date) 
+
+# Parse: "20260123" -> Date Object
+dt_object = datetime.strptime(date_str, "%Y%m%d")
+
+# Format: Date Object -> "2026-01-23"
+formatted_date = dt_object.strftime("%Y-%m-%d")
+
+# Combine: "2026-01-23" + "_" + "1"
+# RESULT: final_partition_value = "2026-01-23_1"
+final_partition_value = f"{formatted_date}_{input_run_index}"
+
+print(f"--- Pre-calculated Partition Value: {final_partition_value} ---")
+
+
+# --- 3. CREATE DATA ---
+# (Simulating your source data)
+data = [(i, f"Product {i}", 100, 20260123) for i in range(100)]
+df = spark.createDataFrame(data, ["id", "product", "amount", "transactiondate"])
+
+# --- 4. APPLY TO DATAFRAME ---
+# Instead of complex logic, we just use F.lit() (Literal)
+# This is extremely fast because Spark treats it as a constant.
+
+df_final = df.withColumn("transactiondate_index", F.lit(final_partition_value))
+
+df_final.show(5)
+
+# --- 5. WRITE TO S3 ---
+s3_output_path = "s3://your-target-bucket/processed-data/"
+SAFE_ROW_LIMIT = 2000000
+
+df_final.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .option("maxRecordsPerFile", SAFE_ROW_LIMIT) \
+    .parquet(s3_output_path)
+Why is this better?
+Feature	Old Method (Logic inside withColumn)	New Method (Declare Before)
+Calculation	Calculated millions of times (once per row).	Calculated 1 time (on the driver).
+Complexity	Spark has to serialize date parsing logic to all workers.	Spark just sends a simple string "2026-01-23_1".
+Error Handling	If the date format is wrong, the job fails halfway through processing data.	If the date format is wrong, the script fails instantly at line 20 (Fail Fast).
+When should you NOT use this?
+You cannot use this method if your source data contains multiple different dates in the same file (e.g., a file containing data for both Jan 23rd and Jan 24th). In that specific case, you must use the row-by-row logic from the previous solution.
+
+I can provide a number of rows on each file with this
+
+SAFE_ROW_LIMIT = 2000000
+
+if i want to setting 10000 records per file can be changed
+
+SAFE_ROW_LIMIT = 10000
+
+Yes, you can absolutely change SAFE_ROW_LIMIT to 10000. This gives you precise control to force more files to be created.
+
+However, you should be aware of the trade-offs regarding file sizes.
+
+1. The Code Change
+You simply update the variable definition. The rest of the logic remains exactly the same.
+
+Python
+# --- SETTING THE LIMIT ---
+# 10,000 rows per file
+SAFE_ROW_LIMIT = 10000 
+
+print(f"--- Writing with Limit: Max {SAFE_ROW_LIMIT} rows per file ---")
+
+df_final.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .option("maxRecordsPerFile", SAFE_ROW_LIMIT) \
+    .parquet(s3_output_path)
+2. The Impact: "The Small File Problem"
+While this works perfectly for writing, it might impact how you read the data later (e.g., in Athena or other Spark jobs).
+
+Feature	2,000,000 Rows (Previous)	10,000 Rows (New)
+Approx. File Size	~100 MB - 250 MB	~0.5 MB - 1 MB
+File Count (for 10M rows)	5 Files	1,000 Files
+Athena Read Speed	Fast (Sweet spot size)	Slow (Too much overhead opening/closing 1,000 tiny files)
+Use Case	Production / Big Data	Debugging / Streaming consumers / Small specific batches
+3. Recommendation
+Use 10,000 if you are testing, debugging, or if the downstream system explicitly requires small chunks.
+
+Use 1,000,000+ if your goal is performant Data Lake storage for querying.
+
+If you just want to see multiple files created for testing purposes, setting it to 10000 is the correct way to do it.
+
+ยกตัวอย่างโค้ด pyspark เรียกใช้ sum()
+
+เมื่อต้องการเช็คเงื่อนไขว่า
+
+premium_level = basic ให้ sum() เป็นคอลัมน์ใหม่ basic_premium ผลรวมของ premium_level = basic
+
+premium_level = rider ให้ sum() เป็นคอลัมน์ใหม่ rider_premium ผลรวมของ premium_level = rider
+
+และ total_premium เป็นคอลัมน์ใหม่ ที่มีผลรวมของ basic+rider premium_level = (basic,rider)
+
+นี่คือตัวอย่างโค้ด PySpark สำหรับการทำ Conditional Aggregation (การหาผลรวมแบบมีเงื่อนไข) ซึ่งเป็นเทคนิคมาตรฐานในการ "เปลี่ยนแถวเป็นคอลัมน์" พร้อมคำนวณผลรวมครับ
+
+เราจะใช้ฟังก์ชัน F.when() เข้าไปซ้อนอยู่ใน F.sum() เพื่อเลือกบวกเลขเฉพาะแถวที่ตรงเงื่อนไขครับ
+
+วิธีที่ 1: ใช้ sum(when(...)) (วิธีมาตรฐานและยืดหยุ่นที่สุด)
+วิธีนี้เหมาะมากเมื่อคุณต้องการกำหนดชื่อคอลัมน์เอง หรือมีเงื่อนไขที่ซับซ้อน
+
+Python
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+
+# สร้าง Spark Session
+spark = SparkSession.builder.appName("ConditionalSum").getOrCreate()
+
+# 1. จำลองข้อมูล (Mock Data)
+# สมมติเรา group ตาม 'policy_id'
+data = [
+    ("P001", "basic", 1000),
+    ("P001", "rider", 500),
+    ("P001", "tax", 50),      # แถวนี้จะไม่ถูกนับใน total ตามโจทย์
+    ("P002", "basic", 2000),
+    ("P002", "rider", 0),
+    ("P003", "rider", 300)
+]
+columns = ["policy_id", "premium_level", "amount"]
+df = spark.createDataFrame(data, columns)
+
+print("--- ข้อมูลดิบ ---")
+df.show()
+
+# 2. การเขียน Logic
+# เราจะ GroupBy ตาม policy_id และสร้าง 3 คอลัมน์ใหม่
+result_df = df.groupBy("policy_id").agg(
+    
+    # 1. สร้าง basic_premium: ถ้าเป็น basic ให้เอาค่า amount มา, ถ้าไม่ใช่ให้เป็น 0 แล้วค่อย sum
+    F.sum(
+        F.when(F.col("premium_level") == "basic", F.col("amount")).otherwise(0)
+    ).alias("basic_premium"),
+
+    # 2. สร้าง rider_premium: ถ้าเป็น rider ให้เอาค่า amount มา
+    F.sum(
+        F.when(F.col("premium_level") == "rider", F.col("amount")).otherwise(0)
+    ).alias("rider_premium"),
+
+    # 3. สร้าง total_premium: รวมเฉพาะ basic และ rider
+    F.sum(
+        F.when(F.col("premium_level").isin(["basic", "rider"]), F.col("amount")).otherwise(0)
+    ).alias("total_premium")
+)
+
+print("--- ผลลัพธ์ ---")
+result_df.show()
+วิธีที่ 2: ใช้ pivot() (วิธีเขียนสั้นกว่า)
+ถ้าข้อมูลใน premium_level สะอาดและคุณแค่อยากกลับด้านข้อมูล วิธีนี้จะเขียนโค้ดน้อยกว่า แต่ต้องมาบวก Total เองในขั้นที่ 2
+
+Python
+# 1. Pivot ข้อมูลเพื่อแยก column basic และ rider
+pivot_df = df.groupBy("policy_id") \
+    .pivot("premium_level", ["basic", "rider"]) \
+    .sum("amount") \
+    .na.fill(0) # ใส่ 0 แทนค่า Null กรณีไม่มีข้อมูล
+
+# 2. สร้าง column total_premium โดยการบวกคอลัมน์ตรงๆ
+final_df = pivot_df.withColumn(
+    "total_premium", 
+    F.col("basic") + F.col("rider")
+)
+
+# เปลี่ยนชื่อ column ให้ตรงโจทย์ (basic -> basic_premium)
+final_df = final_df \
+    .withColumnRenamed("basic", "basic_premium") \
+    .withColumnRenamed("rider", "rider_premium")
+
+final_df.show()
+คำอธิบายเพิ่มเติม
+F.when(condition, value).otherwise(0): นี่คือหัวใจสำคัญ มันทำงานเหมือน CASE WHEN ใน SQL คือ "ถ้าตรงเงื่อนไข ให้เอาค่ามา ถ้าไม่ตรง ให้เป็น 0"
+
+F.sum(...): จะทำการรวมค่า 0 และค่าจริงเข้าด้วยกัน ทำให้เราได้ผลรวมเฉพาะกลุ่มที่ต้องการ
+
+isin(["basic", "rider"]): ใช้สำหรับ total_premium เพื่อให้มั่นใจว่าเราบวกเฉพาะ 2 ประเภทนี้เท่านั้น (เผื่อในอนาคตมี type อื่นๆ เช่น 'fee' หรือ 'tax' เข้ามาในข้อมูล ค่า total จะได้ไม่เพี้ยน)
+
+ขอเพิ่มเป็นโค้ด aws glue pyspark ที่สามารถรันแบบ locally ได้ ด้วย vs code
+
+การจะรันโค้ดที่มี awsglue library (เช่น GlueContext, DynamicFrame) บนเครื่องตัวเอง (Local) ให้ผ่าน VS Code นั้น ไม่สามารถทำได้ด้วยการ pip install ธรรมดา ครับ เพราะ library ของ AWS Glue ผูกกับ Environment เฉพาะ
+
+วิธีที่ Official และดีที่สุด ที่ AWS แนะนำคือการใช้ Docker Container ของ AWS Glue ครับ
+
+นี่คือขั้นตอนการทำ AWS Glue Local Development บน VS Code แบบ Step-by-Step ครับ
+
+สิ่งที่ต้องมี (Prerequisites)
+Docker Desktop: ติดตั้งและรันอยู่บนเครื่อง
+
+VS Code: ติดตั้ง Extension ชื่อ "Dev Containers" (ของ Microsoft)
+
+ขั้นตอนการตั้งค่า (Setup)
+1. สร้าง Folder Project
+สร้างโฟลเดอร์สำหรับโปรเจกต์ เช่น glue-local-lab และเปิดด้วย VS Code
+
+2. สร้างไฟล์ Config สำหรับ Dev Container
+ใน VS Code ให้สร้างโฟลเดอร์ชื่อ .devcontainer และสร้างไฟล์ devcontainer.json ข้างในนั้น โดยใส่โค้ดนี้ลงไป:
+
+ไฟล์: .devcontainer/devcontainer.json
+
+JSON
+{
+    "name": "AWS Glue Libs",
+    "image": "amazon/aws-glue-libs:glue_libs_4.0.0_image_01",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    },
+    "forwardPorts": [4040],
+    "postCreateCommand": "pip3 install pytest"
+}
+(หมายเหตุ: นี่คือการดึง Image จำลอง Glue Version 4.0 มาใช้)
+
+3. เปิด Container
+กดปุ่มสีเขียวมุมซ้ายล่างของ VS Code (Open Remote Window)
+
+เลือก "Reopen in Container"
+
+รอสักพัก (ครั้งแรกจะนานหน่อยเพราะต้องโหลด Image ~2-3 GB)
+
+เมื่อเสร็จแล้ว Terminal ใน VS Code ของคุณจะเปลี่ยนเป็น glue_user@... แสดงว่าคุณอยู่ในสภาพแวดล้อม Glue แล้ว!
+
+ตัวอย่างโค้ด (Glue PySpark Script)
+สร้างไฟล์ชื่อ local_glue_job.py (ใน Root folder) โค้ดนี้รวมเอาการตั้งค่า Glue Context และ Logic การหาผลรวม (Sum) ที่คุณถามมาก่อนหน้าครับ
+
+Python
+import sys
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+
+# --- 1. Glue Boilerplate Setup ---
+# ส่วนนี้จำเป็นเพื่อให้รันเป็น Glue Job ได้
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# ตั้งชื่อ Job (ถ้าเป็น local ใส่ชื่ออะไรก็ได้)
+job.init("Local_Glue_Job_Test", {})
+
+print("--- Starting Local Glue Job ---")
+
+# --- 2. Mock Data (จำลองข้อมูล) ---
+# ใน Local เรามักจะสร้าง DataFrame เอง หรืออ่านจากไฟล์ในเครื่อง
+data = [
+    ("P001", "basic", 1000),
+    ("P001", "rider", 500),
+    ("P001", "tax", 50),
+    ("P002", "basic", 2000),
+    ("P002", "rider", 0),
+    ("P003", "rider", 300)
+]
+columns = ["policy_id", "premium_level", "amount"]
+
+# สร้าง Spark DataFrame
+df = spark.createDataFrame(data, columns)
+
+print("--- Input Data ---")
+df.show()
+
+# --- 3. Business Logic (โค้ดคำนวณ) ---
+# ใช้ Logic เดียวกับที่คุณต้องการ: แยก Basic, Rider และ Total
+result_df = df.groupBy("policy_id").agg(
+    F.sum(
+        F.when(F.col("premium_level") == "basic", F.col("amount")).otherwise(0)
+    ).alias("basic_premium"),
+    
+    F.sum(
+        F.when(F.col("premium_level") == "rider", F.col("amount")).otherwise(0)
+    ).alias("rider_premium"),
+    
+    F.sum(
+        F.when(F.col("premium_level").isin(["basic", "rider"]), F.col("amount")).otherwise(0)
+    ).alias("total_premium")
+)
+
+print("--- Result Data ---")
+result_df.show()
+
+# --- 4. (Optional) Write Output Locally ---
+# เขียนไฟล์ลงใน Container (หรือเครื่องเราถ้า Mount volume ไว้)
+# output_path = "/home/glue_user/workspace/output/"
+# result_df.write.mode("overwrite").parquet(output_path)
+
+# --- 5. Commit Job ---
+job.commit()
+print("--- Job Finished Successfully ---")
+วิธีการรัน (Running)
+เมื่อคุณอยู่ในโหมด Dev Container ใน VS Code แล้ว (Terminal เป็น Linux):
+
+เปิด Terminal ใน VS Code
+
+รันคำสั่ง:
+
+Bash
+spark-submit local_glue_job.py
+คุณจะเห็น Log ของ Spark วิ่งขึ้นมา และเห็นตาราง show() แสดงผลลัพธ์ที่ถูกต้องครับ
+
+ข้อดีของการใช้วิธีนี้
+เหมือนจริง: คุณได้ใช้ GlueContext จริงๆ ไม่ใช่แค่ PySpark ธรรมดา
+
+ไม่กระทบเครื่อง: Library ต่างๆ อยู่ใน Docker หมด ไม่ต้องลง Java/Hadoop ให้รกเครื่องตัวเอง
+
+ทีมเดียวกัน: สามารถแชร์ไฟล์ .devcontainer ให้เพื่อนร่วมทีม แล้วทุกคนจะมี Environment เหมือนกันเป๊ะๆ ทันที
+
+ฉันสามารถนำโค้ดไปรันที่ google jupyter notebook ได้ไหม ขอลิ้งค์ด้วย
+
+ได้ครับ แต่มี ข้อจำกัดสำคัญ ที่ต้องทราบก่อนครับ
+
+คุณ ไม่สามารถ รันโค้ดที่มี awsglue library (เช่น GlueContext, awsglue.job) บน Google Colab ได้โดยตรงครับ เพราะ Library เหล่านี้เป็นของเฉพาะ (Proprietary) ของ AWS ไม่ได้เปิดให้ติดตั้งทั่วไปผ่าน pip
+
+แต่... คุณสามารถ รัน Logic การคำนวณ (Business Logic) ของ PySpark บน Google Colab ได้สบายๆ ครับ เพียงแค่ต้องตัดส่วนที่เป็น AWS Glue ออก แล้วใช้ Spark Session แบบมาตรฐานแทน
+
+นี่คือลิ้งค์และวิธีการทำครับ:
+
+ทางเข้า: Google Colab
+
+ขั้นตอนการรันบน Google Colab
+เปิด Notebook ใหม่
+
+ติดตั้ง PySpark ก่อน (เพราะ Google Colab ไม่มีมาให้แต่แรก) โดยรันคำสั่งนี้ในช่องแรก:
+
+Python
+!pip install pyspark
+ใช้โค้ดด้านล่างนี้ (ซึ่งผมปรับแก้โดยตัดส่วน AWS Glue ออกให้แล้ว เพื่อให้รันบน Colab ได้ แต่ผลลัพธ์การคำนวณเหมือนเดิมครับ):
+
+Python
+# --- ส่วนนี้รันบน Google Colab ได้เลย ---
+
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+
+# 1. สร้าง Spark Session แบบมาตรฐาน (แทน GlueContext)
+spark = SparkSession.builder.appName("ColabTest").getOrCreate()
+
+# 2. Mock Data (จำลองข้อมูลเหมือนเดิม)
+data = [
+    ("P001", "basic", 1000),
+    ("P001", "rider", 500),
+    ("P001", "tax", 50),
+    ("P002", "basic", 2000),
+    ("P002", "rider", 0),
+    ("P003", "rider", 300)
+]
+columns = ["policy_id", "premium_level", "amount"]
+df = spark.createDataFrame(data, columns)
+
+print("--- Input Data ---")
+df.show()
+
+# 3. Business Logic (ส่วนนี้คือ Logic จริงที่คุณต้องการทดสอบ)
+# โค้ดส่วนนี้เหมือนกับที่จะเอาไปใช้ใน AWS Glue 100%
+result_df = df.groupBy("policy_id").agg(
+    F.sum(
+        F.when(F.col("premium_level") == "basic", F.col("amount")).otherwise(0)
+    ).alias("basic_premium"),
+    
+    F.sum(
+        F.when(F.col("premium_level") == "rider", F.col("amount")).otherwise(0)
+    ).alias("rider_premium"),
+    
+    F.sum(
+        F.when(F.col("premium_level").isin(["basic", "rider"]), F.col("amount")).otherwise(0)
+    ).alias("total_premium")
+)
+
+print("--- Result Data ---")
+result_df.show()
+สรุป
+ถ้าจะเทส สูตรคำนวณ (Sum/Condition) -> ใช้ Google Colab ได้เลย (ด้วยโค้ดข้างบน)
+
+ถ้าจะเทส การเชื่อมต่อ S3, Glue Data Catalog หรือ Job Bookmarks -> ต้องใช้ AWS Glue Docker (วิธี VS Code ที่ตอบไปก่อนหน้า) หรือเทสบน AWS Console จริงครับ
