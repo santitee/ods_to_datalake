@@ -1,3 +1,62 @@
 links gemini
 
 https://gemini.google.com/share/d0fb917dc359
+
+import sys
+from datetime import datetime
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql import functions as F
+
+# --- SETUP ---
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+
+# --- 1. INPUT VARIABLES ---
+input_transaction_date = "20260123" # Can be int or string
+input_run_index = "1"
+
+# --- 2. PRE-CALCULATE THE INDEX (Pure Python) ---
+# We do this logic ONCE on the driver, not millions of times on the cluster.
+
+# Ensure input is string to be safe
+date_str = str(input_transaction_date) 
+
+# Parse: "20260123" -> Date Object
+dt_object = datetime.strptime(date_str, "%Y%m%d")
+
+# Format: Date Object -> "2026-01-23"
+formatted_date = dt_object.strftime("%Y-%m-%d")
+
+# Combine: "2026-01-23" + "_" + "1"
+# RESULT: final_partition_value = "2026-01-23_1"
+final_partition_value = f"{formatted_date}_{input_run_index}"
+
+print(f"--- Pre-calculated Partition Value: {final_partition_value} ---")
+
+
+# --- 3. CREATE DATA ---
+# (Simulating your source data)
+data = [(i, f"Product {i}", 100, 20260123) for i in range(100)]
+df = spark.createDataFrame(data, ["id", "product", "amount", "transactiondate"])
+
+# --- 4. APPLY TO DATAFRAME ---
+# Instead of complex logic, we just use F.lit() (Literal)
+# This is extremely fast because Spark treats it as a constant.
+
+df_final = df.withColumn("transactiondate_index", F.lit(final_partition_value))
+
+df_final.show(5)
+
+# --- 5. WRITE TO S3 ---
+s3_output_path = "s3://your-target-bucket/processed-data/"
+SAFE_ROW_LIMIT = 2000000
+
+df_final.write \
+    .mode("append") \
+    .partitionBy("transactiondate_index") \
+    .option("maxRecordsPerFile", SAFE_ROW_LIMIT) \
+    .parquet(s3_output_path)
